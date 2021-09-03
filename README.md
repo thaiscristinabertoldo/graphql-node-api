@@ -32,7 +32,7 @@ DB_URI_CONNECTION = "mongodb+srv://<user>:<password>@<uri>/<collection>?retryWri
 
 ## Exemplos execução queries e mutations
 
-#### Listar Categorias
+### Listar Categorias
 
 **Query:**
 
@@ -60,7 +60,7 @@ query CategoriesQuery {
 }
 ```
 
-#### Obter uma Categoria por id
+### Obter uma Categoria por id
 
 **Query:**
 
@@ -92,7 +92,7 @@ variables: {
 }
 ```
 
-#### Criar uma Categoria
+### Criar uma Categoria
 
 **Mutation:**
 
@@ -127,7 +127,7 @@ variables: {
 }
 ```
 
-#### Atualizar uma Categoria
+### Atualizar uma Categoria
 
 **Mutation:**
 
@@ -163,7 +163,7 @@ variables: {
 }
 ```
 
-#### Deletar uma Categoria
+### Deletar uma Categoria
 
 **Mutation:**
 
@@ -187,7 +187,7 @@ variables: {
 }
 ```
 
-#### Listar Vídeos
+### Listar Vídeos
 
 **Query:**
 
@@ -227,7 +227,7 @@ query VideosQuery {
 }
 ```
 
-#### Obter um Vídeo por id
+### Obter um Vídeo por id
 
 **Query:**
 
@@ -269,7 +269,7 @@ variables: {
 }
 ```
 
-#### Criar um Vídeo
+### Criar um Vídeo
 
 **Mutation:**
 
@@ -305,7 +305,7 @@ variables: {
 }
 ```
 
-#### Atualizar um Vídeo
+### Atualizar um Vídeo
 
 **Mutation:**
 
@@ -342,7 +342,7 @@ variables: {
 }
 ```
 
-#### Deletar um Vídeo
+### Deletar um Vídeo
 
 **Mutation:**
 
