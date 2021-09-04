@@ -24,10 +24,11 @@ $ yarn dev
 
 ## Configurações
 
-Para rodar o projeto é preciso criar o arquivo .env na raiz do projeto e adicionar a uri de conexão do mongo.
+Para rodar o projeto é preciso criar o arquivo .env na raiz do projeto, adicionar a uri de conexão do mongo e a porta que será executado.
 
 ```
 DB_URI_CONNECTION = "mongodb+srv://<user>:<password>@<uri>/<collection>?retryWrites=true&w=majority"
+PORT = 4100
 ```
 
 ## Exemplos execução queries e mutations
@@ -187,13 +188,13 @@ variables: {
 }
 ```
 
-### Listar Vídeos
+### Listar Filmes
 
 **Query:**
 
 ```
-query VideosQuery {
-  videos {
+query MoviesQuery {
+  movies {
     _id
     name
     description
@@ -211,11 +212,11 @@ query VideosQuery {
 ```
 {
   "data": {
-    "videos": [
+    "movies": [
       {
         "_id": "61318e8ebecc2c4569fea73d",
-        "name": "Vídeo de Drama",
-        "description": "Descrição vídeo de drama",
+        "name": "Filme de Drama",
+        "description": "Descrição filme de drama",
         "category": {
           "_id": "61318a404063a4779b45276a",
           "name": "Drama",
@@ -227,16 +228,16 @@ query VideosQuery {
 }
 ```
 
-### Obter um Vídeo por id
+### Obter um Filme por id
 
 **Query:**
 
 ```
-query VideoQuery($videoId: String!) {
-  video(id: $videoId) {
+query Query($movieId: String!) {
+  movie(id: $movieId) {
     _id
-    description
     name
+    description
     category {
       _id
       name
@@ -246,7 +247,7 @@ query VideoQuery($videoId: String!) {
 }
 
 variables: {
-  "videoId": "61317f8ea3115d88b38f913f"
+  "movieId": "61317f8ea3115d88b38f913f"
 }
 ```
 
@@ -257,8 +258,8 @@ variables: {
   "data": {
     "video": {
       "_id": "61318e8ebecc2c4569fea73d",
-      "description": "Vídeo de drama",
-      "name": "Descrição vídeo de drama",
+      "name": "Vídeo de drama",
+      "description": "Descrição vídeo de drama",
       "category": {
         "_id": "61318a404063a4779b45276a",
         "name": "Drama",
@@ -269,13 +270,13 @@ variables: {
 }
 ```
 
-### Criar um Vídeo
+### Criar um Filme
 
 **Mutation:**
 
 ```
-mutation CreateVideoMutation($createVideoVideoInput: VideoInput!) {
-  createVideo(videoInput: $createVideoVideoInput) {
+mutation CreateMovieMutation($createMovieMovieInput: MovieInput!) {
+  createMovie(movieInput: $createMovieMovieInput) {
     _id
     name
     description
@@ -283,9 +284,9 @@ mutation CreateVideoMutation($createVideoVideoInput: VideoInput!) {
 }
 
 variables: {
-  "createVideoVideoInput": {
-    "name": "Vídeo de Comédia",
-    "description": "Descrição vídeo de comédia",
+  "createMovieMovieInput": {
+    "name": "Filme de Comédia",
+    "description": "Descrição filme de comédia",
     "category": "61318a404063a4779b45276a"
   }
 }
@@ -296,22 +297,22 @@ variables: {
 ```
 {
   "data": {
-    "createVideo": {
+    "createMovie": {
       "_id": "61318e8ebecc2c4569fea73d",
-      "name": "Vídeo de Comédia",
-      "description": "Descrição vídeo de comédia"
+      "name": "Filme de Comédia",
+      "description": "Descrição filme de comédia"
     }
   }
 }
 ```
 
-### Atualizar um Vídeo
+### Atualizar um Filme
 
 **Mutation:**
 
 ```
-mutation UpdateVideoMutation($updateVideoVideoInput: VideoInput!, $updateVideoId: String!) {
-  updateVideo(videoInput: $updateVideoVideoInput, id: $updateVideoId) {
+mutation UpdateMovieMutation($updateMovieMovieInput: MovieInput!, $updateMovieId: String!) {
+  updateMovie(movieInput: $updateMovieMovieInput, id: $updateMovieId) {
     _id
     description
     name
@@ -319,10 +320,10 @@ mutation UpdateVideoMutation($updateVideoVideoInput: VideoInput!, $updateVideoId
 }
 
 variables: {
-  "updateVideoId": "61318e8ebecc2c4569fea73d"
-  "updateVideoVideoInput": {
-    "name": "Vídeo de Drama",
-    "description": "Descrição vídeo de drama",
+  "updateMovieId": "61318e8ebecc2c4569fea73d"
+  "updateMovieMovieInput": {
+    "name": "Filme de Drama",
+    "description": "Descrição filme de drama",
     "category": "61318a404063a4779b45276a"
   }
 }
@@ -333,26 +334,26 @@ variables: {
 ```
 {
   "data": {
-    "updateVideo": {
+    "updateMovie": {
       "_id": "61318e8ebecc2c4569fea73d",
-      "description": "Vídeo de Drama",
-      "name": "Descrição vídeo de drama"
+      "name": "Filme de Drama",
+      "description": "Descrição filme de drama"
     }
   }
 }
 ```
 
-### Deletar um Vídeo
+### Deletar um Filme
 
 **Mutation:**
 
 ```
-mutation DeleteVideoMutation($deleteVideoId: String!) {
-  deleteVideo(id: $deleteVideoId)
+mutation DeleteMovieMutation($deleteMovieId: String!) {
+  deleteMovie(id: $deleteMovieId)
 }
 
 variables: {
-  "deleteCategoryId": "61318e8ebecc2c4569fea73d"
+  "deleteMovieId": "61318e8ebecc2c4569fea73d"
 }
 ```
 
@@ -361,7 +362,120 @@ variables: {
 ```
 {
   "data": {
-    "deleteVideo": true
+    "deleteMovie": true
+  }
+}
+```
+
+### Subscriptions
+
+**Subscription Filmes:** _Ao cadastrar, editar ou excluir um filme é enviado a atualização através da subscription_
+
+```
+subscription Subscription {
+  movieNotification {
+    date
+    error
+    result {
+      type
+      id
+    }
+  }
+}
+```
+
+**Resultado:**
+
+_Cadastrar filme com sucesso:_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:43:15.085Z",
+      "error": null,
+      "result": {
+        "type": "ADD",
+        "id": "61339412fbaa5c6f55e6381f"
+      }
+    }
+  }
+}
+```
+
+_Cadastrar filme com erro:_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:43:15.085Z",
+      "error": "Falha ao incluir",
+      "result": null
+    }
+  }
+}
+```
+
+_Atualizar filme com sucesso:_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:44:25.313Z",
+      "error": null,
+      "result": {
+        "type": "UPDATE",
+        "id": "61338d4abf6b707276b5c7d4"
+      }
+    }
+  }
+}
+```
+
+_Atualizar filme com erro:_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:43:15.085Z",
+      "error": "Falha ao editar",
+      "result": null
+    }
+  }
+}
+```
+
+_Excluir filme com sucesso:_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:46:50.150Z",
+      "error": null,
+      "result": {
+        "type": "DELETE",
+        "id": "61338d4abf6b707276b5c7d4"
+      }
+    }
+  }
+}
+
+```
+
+_Excluir_ filme com erro:\_
+
+```
+{
+  "data": {
+    "movieNotification": {
+      "date": "2021-09-04T15:47:21.023Z",
+      "error": "Falha ao excluir",
+      "result": null
+    }
   }
 }
 ```
