@@ -8,7 +8,7 @@ export class MovieNotificationResolver {
   @Subscription({
     topics: TOPICS.MOVIE_NOTIFICATION,
   })
-  newNotification(
+  movieNotification(
     @Root() notificationPayload: NotificationPayload
   ): MovieNotification {
     return {
