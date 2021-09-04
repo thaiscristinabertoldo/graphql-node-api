@@ -1,7 +1,7 @@
-import { Field, ObjectType } from 'type-graphql';
+import { Field, InputType, ObjectType } from 'type-graphql';
 
 @ObjectType()
-class Category {
+export class Category {
   @Field()
   name: String;
 
@@ -12,4 +12,11 @@ class Category {
   _id: String;
 }
 
-export default Category;
+@InputType()
+export class CategoryInput {
+  @Field()
+  description: String;
+
+  @Field()
+  name: String;
+}

@@ -1,18 +1,9 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { Category, CategoryInput } from './Category';
 import CategorySchema from '../../model/CategorySchema';
-import Category from './Category';
-
-@InputType()
-class CategoryInput {
-  @Field()
-  description: String;
-
-  @Field()
-  name: String;
-}
 
 @Resolver(Category)
-class CategoryResolver {
+export class CategoryResolver {
   @Query(() => [Category])
   async categories() {
     const categories = await CategorySchema.find();
@@ -47,5 +38,3 @@ class CategoryResolver {
     return category ? true : false;
   }
 }
-
-export default CategoryResolver;
