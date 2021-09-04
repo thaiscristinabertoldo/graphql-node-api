@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+interface Movie {
+  name: String;
+  description: String;
+  category?: String;
+  _id?: String;
+}
+
 const Schema = new mongoose.Schema({
   name: {
     type: String,
@@ -15,4 +22,4 @@ const Schema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('Videos', Schema);
+export default mongoose.model<Movie>('Movies', Schema);
