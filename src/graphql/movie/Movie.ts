@@ -13,6 +13,9 @@ export class Movie {
   description: String;
 
   @Field({ nullable: true })
+  imageUrl?: String;
+
+  @Field({ nullable: true })
   category?: Category;
 }
 
@@ -23,6 +26,9 @@ export class MovieInput {
 
   @Field()
   name: String;
+
+  @Field({ nullable: true })
+  imageUrl?: String;
 
   @Field()
   category: String;
