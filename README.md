@@ -203,6 +203,7 @@ query MoviesQuery {
       name
       description
     }
+    imageUrl
   }
 }
 ```
@@ -222,6 +223,7 @@ query MoviesQuery {
           "name": "Drama",
           "description": "Categoria de drama"
         }
+        imageUrl: ""
       }
     ]
   }
@@ -242,6 +244,7 @@ query Query($movieId: String!) {
       _id
       name
       description
+      imageUrl
     }
   }
 }
@@ -265,6 +268,7 @@ variables: {
         "name": "Drama",
         "description": "Categoria de drama"
       }
+      imageUrl: ""
     }
   }
 }
@@ -288,6 +292,7 @@ variables: {
     "name": "Filme de Comédia",
     "description": "Descrição filme de comédia",
     "category": "61318a404063a4779b45276a"
+    imageUrl: ""
   }
 }
 ```
@@ -326,6 +331,7 @@ variables: {
     "description": "Descrição filme de drama",
     "category": "61318a404063a4779b45276a"
   }
+  imageUrl: ""
 }
 ```
 
